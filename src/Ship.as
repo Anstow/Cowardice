@@ -24,6 +24,8 @@ package
 		public var player : Boolean;
 		// Base speed
 		public var Speed : Number;
+		// Max Rotation
+		public var agility : Number;
 		
 		//}
 		
@@ -47,8 +49,11 @@ package
 		protected var selected : Boolean;
 		protected var targeted : Boolean;
 		public var orders : Order;
+		// The facing in radians, 0 left positive (use - sin)
+		public var facing : Number;
 		
 		//}
+		
 		
 		public function Ship(xPos:Number, yPos:Number) 
 		{
@@ -60,6 +65,8 @@ package
 			Speed = 1;
 			targeted = false;
 			
+			facing = 0;
+			rotate(0);
 			x = xPos;
 			y = yPos;
 			type = "Ship";
@@ -78,7 +85,7 @@ package
 			move();
 		}
 		
-		public function move():void 
+		public function move():void
 		{
 			if (orders.nextMove != null)
 			{
@@ -100,6 +107,26 @@ package
 					y += dirY;
 				}
 				
+			}
+		}
+		
+		/**
+		 * Rotate the ship
+		 * @param	angle: Tha angle in radians to rotate by
+		 */
+		public function rotate(angle:Number):void 
+		{
+			facing += angle;
+			
+			facing %= 2 * Math.PI;
+			
+			if (facing > Math.PI)
+			{
+				facing = facing - 2 * Math.PI;
+			}
+			else if (facing < -Math.PI)
+			{
+				facing = facing + 2 * Math.PI;
 			}
 		}
 		
