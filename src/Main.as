@@ -17,7 +17,7 @@ package
 			super(800, 600);
 			FP.screen.color = 0x000000;
 			FP.world = new TitleScreen();
-			//FP.console.enable();
+			FP.console.enable();
 		}
 
 	}

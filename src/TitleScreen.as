@@ -31,7 +31,7 @@ package
 			removeAll();
 
 			// TODO: Move on to the menu rather than the game
-			FP.world = new Space();
+			FP.world = new CampainSpace();
 		}
 		
 		
