@@ -37,9 +37,10 @@ package
 			nextMove = new Point(tx, ty);
 		}
 		
-		public function addTarget(t : Ship):void 
+		public function addTarget(t : Ship, aimer: Ship):void 
 		{
 			nextTarget = t;
+			t.targetedBy.push(aimer);
 		}
 		
 	}

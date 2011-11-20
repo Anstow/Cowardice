@@ -29,7 +29,7 @@ package
 			var temp: Graphic = background;
 			temp.scrollX = 0;
 			temp.scrollY = 0;
-			addGraphic(temp);
+			addGraphic(temp,10);
 			
 			hud = new Hud();
 			add(hud);

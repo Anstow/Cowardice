@@ -44,46 +44,36 @@ package
 			rocketSelect.centerOO();
 			rocketTarget.centerOO();
 			
-			player = true;
-			
-			graphic = rocket;			
-			graphic.x = rocket.width / 2;
-			graphic.y = rocket.height / 2;
+			player = false;
 			
 			super(xPos, yPos);
+			
+			currentGraphic.children[1] = rocket;
 		}
 		
 		//{ region Select and target set functions
 		
 		override public function select():void 
 		{
-			graphic = rocketSelect;			
-			graphic.x = rocketSelect.width / 2;
-			graphic.y = rocketSelect.height / 2;
+			currentGraphic.children[1] = rocketSelect;
 			super.select();
 		}
 		
 		override public function unselect():void 
 		{
-			graphic = rocket;			
-			graphic.x = rocket.width / 2;
-			graphic.y = rocket.height / 2;
+			currentGraphic.children[1] = rocket;
 			super.unselect();
 		}
 		
 		override public function target():void 
 		{
-			graphic = rocketTarget;			
-			graphic.x = rocketTarget.width / 2;
-			graphic.y = rocketTarget.height / 2;
+			currentGraphic.children[1] = rocketTarget;
 			super.target();
 		}
 		
 		override public function untarget():void 
 		{
-			graphic = rocket;			
-			graphic.x = rocket.width / 2;
-			graphic.y = rocket.height / 2;
+			currentGraphic.children[1] = rocket;
 			super.untarget();
 		}
 		
