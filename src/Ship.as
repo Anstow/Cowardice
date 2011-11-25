@@ -46,7 +46,7 @@ package
 		public var population : Number;
 		
 		// Strength of the system or damage the ship has sustained between 0,1
-		public var systemStrength : Number;
+		public var systemStrength : Number = 1;
 		// Current cool down in frames
 		public var coolDown : Number;
 		// Current firepower between 0,1
@@ -78,7 +78,7 @@ package
 		public var facing : Number;
 		
 		// Time in frames since last fire
-		public var fireTime : Number;
+		public var fireTime : Number = 0;
 		
 		//}
 				
@@ -89,7 +89,7 @@ package
 			population = maxCrew;
 			autonomy = 0.2;
 			baseRepair = 0.001;
-			maxFirepower = 100;
+			maxFirepower = 1000;
 			maxSpeed = 1;
 			maxAgility = Math.PI / 240; 
 			maxRange = 300;
@@ -163,18 +163,30 @@ package
 		
 		public function fire():void 
 		{
+			// Increment timer for firing
 			fireTime++;
+			
+			// Checks if you can fire
 			if (fireTime > coolDown)
 			{
-				fireTime = 0;
+				// Set timer to cooldown max to prevent overflow (unlikely I know)
+				fireTime = coolDown;
 				
-				if (FP.distanceRects(originX, originY, width, height, orders.nextTarget.originX, orders.nextTarget.originY, orders.nextTarget.width, orders.nextTarget.height) < range)
+				if (orders.nextTarget && FP.distanceRects(originX, originY, width, height, orders.nextTarget.originX, orders.nextTarget.originY, orders.nextTarget.width, orders.nextTarget.height) < range)
 				{
+					// Adds laser line to the world
+					FP.world.add(new Laser(x, y, orders.nextTarget.x, orders.nextTarget.y));
+					
 					if (accuracy > FP.rand(100))
 					{
+						// If you hit increase accuracy
 						accuracy += 1.002;
+						// and damge the hit target
 						orders.nextTarget.damage(firepower);
 					}
+					
+					// Set the cool down timer to 0
+					fireTime = 0;
 				}
 			}
 		}
